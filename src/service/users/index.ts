@@ -1,13 +1,10 @@
-// import { Request, Response, response } from "express";
+
 import User, { UserAtributes } from "../../models/users";
 import hashPas from "../../utilis/hashPas";
-// import { Error } from "sequelize";
+
 
 class UserServis {
     
-    // get = async ()=>{
-    //     return res.send("hello World");
-    // };
 
     async getIdWithPassword(id: number){
         try {
@@ -17,27 +14,35 @@ class UserServis {
             }
             return user
         }
-        catch (error) {
-            throw error;
+        catch{
+            console.error("Ошибка:", Error);
+            throw Error
         }
     };
 
     async getAll(){
         try{
             const result: any = await User.findAll();
-            // return result!= undefined ? result : 'Sorry yuor DB is empty';
-            return result
-        }catch (error){
-            console.log(error);
+            if (result === undefined ){
+                throw Error;
+            }
+            return result;  
+        }catch{
+            console.error("Ошибка:", Error);
+            return Error
         }
     };
 
     async getById(id: number){
         try{
             const result: any = await User.findByPk(id)
-            return result!= undefined ? result : 'Sorry yuor DB is empty';
+            if (result === undefined ){
+                throw Error;
+            }
+            return result;  
         }catch(err){
-            console.log(err);
+            console.error("Ошибка:", err);
+            return err
         }
     };
 
@@ -46,6 +51,7 @@ class UserServis {
             const result = await User.create({...userData, password: hashPas(userData.password)});
             return result
         }catch (err){
+            console.error("Ошибка:", err);
             return err
         }
     };
@@ -58,7 +64,8 @@ class UserServis {
             );
             return Users;
         }catch(err){
-            console.log(err);
+            console.error("Ошибка:", err); 
+            return err
         };
     };
 
@@ -70,49 +77,21 @@ class UserServis {
             );
             return Users;
         }catch(err){
-            console.log(err);
+            console.error("Ошибка:", err); 
+            return err;
         };
     };
 
     async delete(idUser: number){
         try{
-            // const user = await User.findByPk(idUser);
-            
-            const result = await User.destroy({where:{id: idUser}});
+            const result = await User.destroy({where: {id: idUser}});
             return result
         }catch(err){
-            return err;
+            console.error("Ошибка при удалении пользователя:", err); 
+            return err
         }
-    }
+    };
 
-        
-    // getUser = async (req: Request, res: Response) => {
-    //     try{
-    //         const user = req.body;
-    //         const {id} = user;
-    //         const result: any = User.findOne({where: {id}}).then(err => console.log(err));
-    //         const {name} = result;
-    //         console.log(result.name);
-    //         res.status(200).json({
-    //             responce: name() 
-    //         })
-    //     }catch (error){
-    //         console.log(error);
-    //     };
-    // };
-
-    // getAllUser = async (req: Request, res: Response) => {
-    //     try{
-    //         const result: any = User.findAll().then(err => console.log(err));
-    //         const {name} = result;
-    //         res.status(200).json({
-    //             response: name()
-    //         })
-    //     }catch (error){
-    //         console.log(error);
-    //         res.send(error);
-    //     }
-    // }
 }
 
 export default UserServis;

@@ -12,7 +12,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const basket_1 = __importDefault(require("../../service/basket"));
+const cart_1 = __importDefault(require("../../service/cart"));
+const product_1 = __importDefault(require("../../service/product"));
 class BasketController {
     constructor() {
         this.get = (req, res) => __awaiter(this, void 0, void 0, function* () {
@@ -36,7 +37,8 @@ class BasketController {
         this.create = (req, res) => __awaiter(this, void 0, void 0, function* () {
             try {
                 const result = yield this.basketcontroller.create(req.body.userId, req.body.productId, req.body);
-                console.log(req.body.userId);
+                const substr = yield this.products.subQuantity(req.body.productId, req.body.count);
+                console.log(substr);
                 res.status(200).send({ result });
             }
             catch (err) {
@@ -52,8 +54,8 @@ class BasketController {
                 res.status(400).send(err);
             }
         });
-        this.basketcontroller = new basket_1.default();
+        this.basketcontroller = new cart_1.default();
+        this.products = new product_1.default();
     }
-    ;
 }
 exports.default = BasketController;

@@ -21,7 +21,6 @@ class BasketService {
             try {
                 const result = yield basket_1.default.findAll();
                 return (result.length === 0 || result === undefined) ? 'no data' : result;
-                // return result
             }
             catch (err) {
                 return err;
@@ -40,7 +39,6 @@ class BasketService {
             }
         });
     }
-    // product: ProductAtributes
     create(userId, productId, basketData) {
         return __awaiter(this, void 0, void 0, function* () {
             try {

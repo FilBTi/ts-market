@@ -13,6 +13,6 @@ rout.route('/:id')
     .get(userServis.getId)
     .post(userServis.updatePas)
 
-rout.post('/del', userServis.delete)
+rout.delete('/del', userServis.delete)
 
 export default rout

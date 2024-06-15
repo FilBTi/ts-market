@@ -1,9 +1,12 @@
 import Express  from "express";
-import BasketController from "../../controllers/basket";
+import BasketController from "../../controllers/cart";
+import BasketService from "../../service/cart";
+
+
 
 const rout: Express.Router = Express.Router();
 
-const basket = new BasketController;
+const basket = new BasketController();
 
 rout.route('/')
     .get(basket.get)

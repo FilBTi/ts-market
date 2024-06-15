@@ -80,7 +80,12 @@ class ProductServic {
     subQuantity(productId, count) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                const result = yield product_1.default.update({ quantity: count }, { where: { id: productId } });
+                const product = yield product_1.default.findByPk(productId);
+                if (product === null) {
+                    throw Error;
+                }
+                const nCount = product.quantity - count;
+                const result = yield product_1.default.update({ quantity: nCount }, { where: { id: productId } });
                 return result;
             }
             catch (err) {

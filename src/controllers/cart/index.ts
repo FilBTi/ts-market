@@ -1,12 +1,15 @@
-import BasketService from "../../service/basket";
+import BasketService from "../../service/cart";
 import { Request, Response } from "express";
+import ProductServic from "../../service/product";
 
 export default class BasketController{
     private basketcontroller: BasketService;
+    private products: ProductServic
 
     constructor(){
         this.basketcontroller = new BasketService();
-    };
+        this.products = new ProductServic();
+    }
 
     get = async (req: Request, res: Response) =>{
         try{
@@ -29,7 +32,8 @@ export default class BasketController{
     create = async (req: Request, res: Response) => {
         try{
             const result = await this.basketcontroller.create(req.body.userId, req.body.productId, req.body);
-            console.log(req.body.userId)
+            const substr = await this.products.subQuantity(req.body.productId, req.body.count);
+            console.log(substr)
             res.status(200).send({result});
         }catch (err){
             res.status(400).send(err);

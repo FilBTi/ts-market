@@ -12,14 +12,9 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-// import { Request, Response, response } from "express";
 const users_1 = __importDefault(require("../../models/users"));
 const hashPas_1 = __importDefault(require("../../utilis/hashPas"));
-// import { Error } from "sequelize";
 class UserServis {
-    // get = async ()=>{
-    //     return res.send("hello World");
-    // };
     getIdWithPassword(id) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
@@ -29,8 +24,9 @@ class UserServis {
                 }
                 return user;
             }
-            catch (error) {
-                throw error;
+            catch (_a) {
+                console.error("Ошибка:", Error);
+                throw Error;
             }
         });
     }
@@ -39,11 +35,14 @@ class UserServis {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 const result = yield users_1.default.findAll();
-                // return result!= undefined ? result : 'Sorry yuor DB is empty';
+                if (result === undefined) {
+                    throw Error;
+                }
                 return result;
             }
-            catch (error) {
-                console.log(error);
+            catch (_a) {
+                console.error("Ошибка:", Error);
+                return Error;
             }
         });
     }
@@ -52,10 +51,14 @@ class UserServis {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 const result = yield users_1.default.findByPk(id);
-                return result != undefined ? result : 'Sorry yuor DB is empty';
+                if (result === undefined) {
+                    throw Error;
+                }
+                return result;
             }
-            catch (err) {
-                console.log(err);
+            catch (_a) {
+                console.error("Ошибка:", Error);
+                return Error;
             }
         });
     }
@@ -67,6 +70,7 @@ class UserServis {
                 return result;
             }
             catch (err) {
+                console.error("Ошибка:", Error);
                 return err;
             }
         });
@@ -78,8 +82,9 @@ class UserServis {
                 const Users = yield users_1.default.update({ password: userData.password }, { where: { id: id } });
                 return Users;
             }
-            catch (err) {
-                console.log(err);
+            catch (_a) {
+                console.error("Ошибка:", Error);
+                return Error;
             }
             ;
         });
@@ -91,8 +96,9 @@ class UserServis {
                 const Users = yield users_1.default.update({ email: userData.email }, { where: { id: id } });
                 return Users;
             }
-            catch (err) {
-                console.log(err);
+            catch (_a) {
+                console.error("Ошибка:", Error);
+                return Error;
             }
             ;
         });
@@ -101,14 +107,15 @@ class UserServis {
     delete(idUser) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                // const user = await User.findByPk(idUser);
                 const result = yield users_1.default.destroy({ where: { id: idUser } });
                 return result;
             }
-            catch (err) {
-                return err;
+            catch (_a) {
+                console.error("Ошибка при удалении пользователя:", Error);
+                return Error;
             }
         });
     }
+    ;
 }
 exports.default = UserServis;

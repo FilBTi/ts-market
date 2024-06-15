@@ -7,6 +7,7 @@ class ProductServic {
             return result != undefined ? result : 'Sorry yuor DB is empty';
         }catch (err){
             console.log(err);
+            return err;
         }
     };
 
@@ -20,23 +21,23 @@ class ProductServic {
         }
     };
 
-    async createProduct(productData: ProducCreationAttributes): Promise<Product>{
+    async createProduct(productData: ProducCreationAttributes){
         try{
             const product = await Product.create(productData);
             return product;
-        }catch (err) {
+        }catch (err){
             console.log(err);
-            throw err;
+            return err;
         }
     };
 
-    async getQuantity(productId: number): Promise<Product>{
+    async getQuantity(productId: number){
         try{
             const quantity : any = await Product.findByPk(productId);
             return quantity;
         }catch (err){
             console.log(err);
-            throw err;
+            return err;
         }
     };
 
@@ -49,18 +50,25 @@ class ProductServic {
             return result
         }catch (err){
             console.log(err);
+            return err;
         }
     };
 
     async subQuantity(productId: number, count: number){
         try{
+            const product = await Product.findByPk(productId);
+            if(product === null){
+                throw Error
+            }
+            const nCount = product.quantity - count 
             const result: any = await Product.update(
-                {quantity: count},
+                {quantity: nCount},
                 {where:{id: productId}}
             );
             return result;
-        }catch(err){
+        }catch (err){
             console.log(err);
+            return err;
         }
     };
 

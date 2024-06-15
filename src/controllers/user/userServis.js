@@ -81,14 +81,13 @@ class UserController {
         });
         this.delete = (req, res) => __awaiter(this, void 0, void 0, function* () {
             try {
-                const result = yield this.userservis.delete(req.body);
+                const result = yield this.userservis.delete(Number(req.body.id));
                 if (result === null) {
                     res.status(404).send('Not found');
                     return;
                 }
                 ;
-                console.log(result);
-                res.status(200).send(result);
+                res.status(200).send('Your user has been deleted');
             }
             catch (err) {
                 res.status(400).send(err);

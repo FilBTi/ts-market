@@ -71,13 +71,12 @@ class UserController {
 
     delete = async(req: Request, res: Response) => {
         try{
-            const result = await this.userservis.delete(req.body);
+            const result = await this.userservis.delete(Number(req.body.id));
             if(result === null){
                 res.status(404).send('Not found');
                 return
             };
-            console.log(result)
-            res.status(200).send(result);
+            res.status(200).send('Your user has been deleted');
         }catch(err){
             res.status(400).send(err);
         }

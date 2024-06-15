@@ -8,7 +8,6 @@ class BasketService {
         try{
             const result = await Basket.findAll();
             return (result.length === 0 || result === undefined) ? 'no data' : result;
-            // return result
         }catch (err){ 
             return err;
         }
@@ -21,9 +20,18 @@ class BasketService {
         }catch(err){
             return err
         }
-    }
+    };
 
-    // product: ProductAtributes
+    async getByUserId(userId: number){
+        try{
+            const result = await Basket.findAll({where:{userId: userId}});
+            return result;
+        }catch(err){
+            return err
+        }
+    };
+
+    
     async create(userId: number, productId: number, basketData: Omit<BasketAtributes, 'product' | 'user'>) : Promise<Basket>{
         try{
             const user: any = await User.findOne({where: {id: userId}});

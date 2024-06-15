@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.auth = exports.SECRET_KEY = void 0;
+exports.isAdmin = exports.auth = exports.SECRET_KEY = void 0;
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const users_1 = __importDefault(require("../service/users"));
 // import 'dotenv/config';
@@ -41,3 +41,22 @@ const auth = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () 
     }
 });
 exports.auth = auth;
+const isAdmin = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const token = req.header('Authorization');
+        if (!token) {
+            throw new Error('Missing token');
+        }
+        const decoded = jsonwebtoken_1.default.verify(token, exports.SECRET_KEY);
+        const { role } = yield userService.getById(decoded.id);
+        if (role != "ADMIN") {
+            res.status(401).send("You are not an admin!");
+            return;
+        }
+        next();
+    }
+    catch (_b) {
+        res.status(401).send({ "error": 'Please send correct request' });
+    }
+});
+exports.isAdmin = isAdmin;
