@@ -1,7 +1,7 @@
 import sequelize from "./provider/db";
 import express from "express";
-import bodyParser from 'body-parser'
-import rout from "../src/routes" ;
+import bodyParser from 'body-parser';
+import rout from "../src/routes";
 import  dotenv  from "dotenv";
 
 const app = express();
