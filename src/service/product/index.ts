@@ -1,12 +1,12 @@
 import Product , { ProductAtributes, ProducCreationAttributes }  from "../../models/product";
 
-class ProductServic {
+export default class ProductServic {
     async getAll(){
         try{
             const result = Product.findAll();
             return result != undefined ? result : 'Sorry yuor DB is empty';
         }catch (err){
-            console.log(err);
+            console.error(err);
             return err;
         }
     };
@@ -16,7 +16,7 @@ class ProductServic {
             const result : any = await Product.findByPk(id);
             return result;
         }catch (err){
-            console.log(err);
+            console.error(err);
             return err;
         }
     };
@@ -26,7 +26,7 @@ class ProductServic {
             const product = await Product.create(productData);
             return product;
         }catch (err){
-            console.log(err);
+            console.error(err);
             return err;
         }
     };
@@ -36,7 +36,7 @@ class ProductServic {
             const quantity : any = await Product.findByPk(productId);
             return quantity;
         }catch (err){
-            console.log(err);
+            console.error(err);
             return err;
         }
     };
@@ -49,7 +49,7 @@ class ProductServic {
             );
             return result
         }catch (err){
-            console.log(err);
+            console.error(err);
             return err;
         }
     };
@@ -60,18 +60,16 @@ class ProductServic {
             if(product === null){
                 throw Error
             }
-            const nCount = product.quantity - count 
+            const nCount = product.quantity - count; 
             const result: any = await Product.update(
                 {quantity: nCount},
                 {where:{id: productId}}
             );
             return result;
         }catch (err){
-            console.log(err);
+            console.error(err);
             return err;
         }
     };
 
-}
-
-export default ProductServic
+};

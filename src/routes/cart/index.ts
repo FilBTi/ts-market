@@ -1,20 +1,19 @@
 import Express  from "express";
-import BasketController from "../../controllers/cart";
-import BasketService from "../../service/cart";
+import CartController from "../../controllers/cart";
 
 
 
 const rout: Express.Router = Express.Router();
 
-const basket = new BasketController();
+const cart = new CartController();
 
 rout.route('/')
-    .get(basket.get)
-    .post(basket.create);
+    .get(cart.get)
+    .post(cart.create);
 
 rout.route('/:id')
-    .get(basket.getById)
-    .post(basket.update);
+    .get(cart.getById)
+    .post(cart.update);
 
 
 export default rout

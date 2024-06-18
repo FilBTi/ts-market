@@ -1,9 +1,8 @@
 import { Sequelize } from "sequelize-typescript";
 import User from "../models/users"
 import Product from "../models/product"
-import Basket from "../models/basket";
+import Basket from "../models/cart";
 import Promotion from "../models/promotion";
-// import 'dotenv/config';
 
 const sequelize = new Sequelize({
     dialect: 'sqlite',

@@ -10,7 +10,7 @@ const rout: Express.Router = Express.Router();
 
 rout.use('/users', userRout);
 rout.use('/product', auth, isAdmin, productRout);
-rout.use('/basket',  cartRout);
+rout.use('/cart',  cartRout);
 rout.use('/aut',  authoRout);
 
 

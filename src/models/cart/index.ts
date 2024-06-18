@@ -2,10 +2,10 @@ import { Table, Column, AutoIncrement, PrimaryKey, BelongsTo, ForeignKey, Model}
 import User from "../users";
 import Product from "../product";
 import { Optional } from "sequelize";
-import { Col } from "sequelize/types/utils";
 
 
-export type BasketAtributes = {
+
+export type CartAtributes = {
     id: number,
     user: User,
     userId: number,
@@ -16,12 +16,12 @@ export type BasketAtributes = {
     count: number,
 };
 
-export type BasketCreationAtributes = Optional<BasketAtributes, 'product' | 'user'>
+export type CartCreationAtributes = Optional<CartAtributes, 'product' | 'user'>
 
 
 @Table
 
-export class Basket extends Model<BasketAtributes, BasketCreationAtributes> {
+export class Cart extends Model<CartAtributes, CartCreationAtributes> {
 
     @PrimaryKey
     @AutoIncrement
@@ -52,4 +52,4 @@ export class Basket extends Model<BasketAtributes, BasketCreationAtributes> {
     count: number
 };
 
-export default Basket
+export default Cart

@@ -1,7 +1,5 @@
 import { Request, Response } from "express";
-// import User from "../../models/users";
 import UserServis from "../../service/users";
-// import { Error } from "sequelize";
 
 class UserController {
    private userservis : UserServis;

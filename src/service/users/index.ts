@@ -3,9 +3,8 @@ import User, { UserAtributes } from "../../models/users";
 import hashPas from "../../utilis/hashPas";
 
 
-class UserServis {
+export default class UserServis {
     
-
     async getIdWithPassword(id: number){
         try {
             const user = await User.findByPk(id)
@@ -94,4 +93,3 @@ class UserServis {
 
 }
 
-export default UserServis;

@@ -1,4 +1,4 @@
-import sequelize from "./configs/db";
+import sequelize from "./provider/db";
 import express from "express";
 import bodyParser from 'body-parser'
 import rout from "../src/routes" ;
